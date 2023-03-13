@@ -42,3 +42,4 @@ jwt:
     refresh:
         expiration: 864000000 #10일 (60 * 60 * 24 * 10) * 1000
         header: "X-REFRESH-TOKEN"
+domain: "http://localhost:7777/"

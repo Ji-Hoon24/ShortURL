@@ -100,4 +100,18 @@ public class JwtConfig {
     public String getRefreshHeader() {
         return this.refreshHeader;
     }
+
+    public long getMemberNo(HttpServletRequest request) {
+        Optional<String> OAccessToken = this.extractAccessToken(request);
+        if(!OAccessToken.isPresent()) {
+            return 0;
+        }
+        Optional<String> SMemberNo = this.extractMemberNo(OAccessToken.get());
+        long memberNo = 0;
+        if(SMemberNo.isPresent()) {
+            memberNo = Long.parseLong(SMemberNo.get());
+        }
+
+        return memberNo;
+    }
 }
