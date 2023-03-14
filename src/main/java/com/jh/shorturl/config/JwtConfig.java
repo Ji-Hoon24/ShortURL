@@ -102,16 +102,11 @@ public class JwtConfig {
     }
 
     public long getMemberNo(HttpServletRequest request) {
-        Optional<String> OAccessToken = this.extractAccessToken(request);
-        if(!OAccessToken.isPresent()) {
+        String accessToken = extractAccessToken(request).orElse(null);
+        if (accessToken == null) {
             return 0;
         }
-        Optional<String> SMemberNo = this.extractMemberNo(OAccessToken.get());
-        long memberNo = 0;
-        if(SMemberNo.isPresent()) {
-            memberNo = Long.parseLong(SMemberNo.get());
-        }
-
-        return memberNo;
+        String memberNo = extractMemberNo(accessToken).orElse(null);
+        return memberNo == null ? 0 : Long.parseLong(memberNo);
     }
 }
