@@ -1,5 +1,6 @@
 package com.jh.shorturl.shorter.dto.entity;
 
+import com.jh.shorturl.common.AuditBaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @SequenceGenerator(name = "shorter_seq", sequenceName = "shorter_seq", initialValue = 1000, allocationSize = 1)
-public class Shorter {
+public class Shorter extends AuditBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "shorter_seq")
     @Schema(description = "데이터의 고유값(PK)")
