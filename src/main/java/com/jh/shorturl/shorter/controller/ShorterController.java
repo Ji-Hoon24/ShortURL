@@ -7,10 +7,7 @@ import com.jh.shorturl.shorter.dto.request.ShorterRequest;
 import com.jh.shorturl.shorter.dto.result.ShorterResult;
 import com.jh.shorturl.shorter.service.ShorterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -31,5 +28,13 @@ public class ShorterController {
         long memberNo = jwtConfig.getMemberNo(request);
         ShorterResult result = shorterService.longUrlSave(shorterRequest, memberNo);
         return success(result);
+    }
+
+    @GetMapping("/{domain}")
+    public ApiResult<String> longUrl(
+            @PathVariable String domain
+    ) {
+        String longUrl = shorterService.getLongUrl(domain);
+        return success(longUrl);
     }
 }

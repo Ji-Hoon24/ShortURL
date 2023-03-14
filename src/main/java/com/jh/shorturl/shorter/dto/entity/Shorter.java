@@ -14,6 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@SequenceGenerator(name = "shorter_seq", sequenceName = "shorter_seq", initialValue = 1000, allocationSize = 1)
 public class Shorter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "shorter_seq")
@@ -34,5 +35,9 @@ public class Shorter {
 
     public void changeShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
+    }
+
+    public void plusViewCnt() {
+        this.viewCnt++;
     }
 }

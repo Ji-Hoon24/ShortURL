@@ -7,4 +7,6 @@ import lombok.*;
 public class ShorterResult {
 
     private String shortUrl;
+
+    private String longUrl;
 }

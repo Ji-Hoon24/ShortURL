@@ -49,10 +49,17 @@ public class ShorterService {
     }
 
     private String longUrlToShortUrl(long shorterNo, String requestShortUrl) {
-        if(!requestShortUrl.equals("")) {
+        if(requestShortUrl != null && !requestShortUrl.equals("")) {
             return domainUrl + requestShortUrl;
         }
         String shorten = Base62.encoding(shorterNo);
         return domainUrl + shorten;
+    }
+
+    public String getLongUrl(String domain) {
+        Shorter entity = shorterRepository.findByShortUrl(domainUrl + domain).orElseThrow(() -> new IllegalArgumentException("해당 URL 정보가 없습니다."));
+        entity.plusViewCnt();
+        shorterRepository.save(entity);
+        return entity.getLongUrl();
     }
 }
