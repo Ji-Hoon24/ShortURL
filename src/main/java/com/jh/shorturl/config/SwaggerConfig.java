@@ -15,9 +15,7 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Configuration
 @EnableWebMvc
@@ -26,19 +24,6 @@ public class SwaggerConfig {
     private ApiInfo shortURLInfo() {
         return new ApiInfoBuilder().title("ShortURL API")
                 .description("ShortURL Docs").build();
-    }
-
-    private Set<String> getConsumeContentTypes() {
-        Set<String> consumes = new HashSet<>();
-        consumes.add("application/json;charset=UTF-8");
-        consumes.add("application/x-www-form-urlencoded");
-        return consumes;
-    }
-
-    private Set<String> getProduceContentTypes() {
-        Set<String> produces = new HashSet<>();
-        produces.add("application/json;charset=UTF-8");
-        return produces;
     }
 
     @Bean
@@ -65,6 +50,20 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors
                         .basePackage("com.jh.shorturl.member"))
+                .paths(PathSelectors.ant("/**"))
+                .build();
+    }
+
+    @Bean
+    public Docket shorterApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("단축기")
+                .securityContexts(Arrays.asList(securityContext()))
+                .securitySchemes(Arrays.asList(accessToken(), refreshToken()))
+                .apiInfo(this.shortURLInfo())
+                .select()
+                .apis(RequestHandlerSelectors
+                        .basePackage("com.jh.shorturl.shorter"))
                 .paths(PathSelectors.ant("/**"))
                 .build();
     }
