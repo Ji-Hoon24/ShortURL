@@ -1,8 +1,6 @@
 package com.jh.shorturl.shorter.controller;
 
-import com.jh.shorturl.config.ApiResultUtil;
 import com.jh.shorturl.config.JwtConfig;
-import com.jh.shorturl.shorter.dto.entity.Shorter;
 import com.jh.shorturl.shorter.dto.request.ShorterRequest;
 import com.jh.shorturl.shorter.dto.result.ShorterResult;
 import com.jh.shorturl.shorter.service.ShorterService;

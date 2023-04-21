@@ -26,6 +26,8 @@ public class RedisService {
 
     private long phoneAuthSuccessValidityInSeconds = 86400000; //1일
 
+    private long shortUrlSaveInSeconds = 604800000;
+
     public void saveRefreshToken(long memberNo, String refreshToken) {
         redisTemplate.opsForValue()
             .set(String.valueOf(memberNo),
@@ -73,6 +75,18 @@ public class RedisService {
 
         this.saveRefreshToken(members.getMemberNo(), refreshToken);
         return LoginResult.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+    }
+
+    public void saveShortUrl(String shortUrl, String longUrl) {
+        redisTemplate.opsForValue()
+                .set(String.valueOf(shortUrl),
+                        longUrl,
+                        shortUrlSaveInSeconds,
+                        TimeUnit.MILLISECONDS);
+    }
+
+    public String findLongUrl(String shortUrl) {
+        return redisTemplate.opsForValue().get(String.valueOf(shortUrl));
     }
 
 }

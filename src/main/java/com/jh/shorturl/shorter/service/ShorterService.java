@@ -1,12 +1,15 @@
 package com.jh.shorturl.shorter.service;
 
 import com.jh.shorturl.common.Base62;
+import com.jh.shorturl.redis.RedisService;
 import com.jh.shorturl.shorter.domain.ShorterRepository;
 import com.jh.shorturl.shorter.dto.entity.Shorter;
 import com.jh.shorturl.shorter.dto.request.ShorterRequest;
 import com.jh.shorturl.shorter.dto.result.ShorterResult;
+import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,8 @@ import java.util.Optional;
 public class ShorterService {
     private final ShorterRepository shorterRepository;
 
+    private final RedisService redisService;
+
     @Value("${domain}")
     private String domainUrl;
 
@@ -24,14 +29,15 @@ public class ShorterService {
     public ShorterResult longUrlSave(ShorterRequest shorterRequest, long memberNo) {
         Optional<Shorter> longEntity = shorterRepository.findByLongUrl(shorterRequest.getLongUrl());
         if(longEntity.isPresent()) {
-            ShorterResult result = ShorterResult.builder()
+            return ShorterResult.builder()
                     .shortUrl(longEntity.get().getShortUrl())
                     .build();
-            return result;
         }
 
+        String longUrl = shorterRequest.getLongUrl();
+
         Shorter entity = Shorter.builder()
-                .longUrl(shorterRequest.getLongUrl())
+                .longUrl(longUrl)
                 .viewCnt(0)
                 .memberNo(memberNo)
                 .build();
@@ -42,10 +48,11 @@ public class ShorterService {
         saveEntity.changeShortUrl(shortUrl);
         shorterRepository.save(entity);
 
-        ShorterResult result = ShorterResult.builder()
+        redisService.saveShortUrl(shortUrl, longUrl);
+
+        return ShorterResult.builder()
                 .shortUrl(saveEntity.getShortUrl())
                 .build();
-        return result;
     }
 
     private String longUrlToShortUrl(long shorterNo, String requestShortUrl) {
@@ -57,9 +64,26 @@ public class ShorterService {
     }
 
     public String getLongUrl(String domain) {
+        String redisLongUrl = redisService.findLongUrl(domainUrl + domain);
+        if(!StringUtil.isNullOrEmpty(redisLongUrl)) {
+            this.plusUrlViewCnt(domain);
+            return redisLongUrl;
+        }
+
         Shorter entity = shorterRepository.findByShortUrl(domainUrl + domain).orElseThrow(() -> new IllegalArgumentException("해당 URL 정보가 없습니다."));
+        redisService.saveShortUrl(entity.getShortUrl(), entity.getLongUrl());
+        this.plusUrlViewCnt(entity);
+        return entity.getLongUrl();
+    }
+
+    @Async
+    protected void plusUrlViewCnt(String domain) {
+        Shorter entity = shorterRepository.findByShortUrl(domainUrl + domain).orElseThrow(() -> new IllegalArgumentException("해당 URL 정보가 없습니다."));
+        this.plusUrlViewCnt(entity);
+    }
+
+    private void plusUrlViewCnt(Shorter entity) {
         entity.plusViewCnt();
         shorterRepository.save(entity);
-        return entity.getLongUrl();
     }
 }
