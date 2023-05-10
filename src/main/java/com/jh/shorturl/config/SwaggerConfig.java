@@ -68,6 +68,20 @@ public class SwaggerConfig {
                 .build();
     }
 
+    @Bean
+    public Docket AdminApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("관리자")
+                .securityContexts(Arrays.asList(securityContext()))
+                .securitySchemes(Arrays.asList(accessToken(), refreshToken()))
+                .apiInfo(this.shortURLInfo())
+                .select()
+                .apis(RequestHandlerSelectors
+                        .basePackage("com.jh.shorturl.admin"))
+                .paths(PathSelectors.ant("/**"))
+                .build();
+    }
+
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(accessTokenAuth())
