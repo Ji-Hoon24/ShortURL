@@ -1,8 +1,36 @@
 spring:
+    profiles:
+        group:
+            "local": "local,common"
+            "product": "product,common"
+---
+spring:
+    config:
+      activate:
+          on-profile: common
     application:
         name: ShortURL
     messages:
         encoding: UTF-8
+    redis:
+        host: localhost
+        port: 6379
+server:
+    port: 7777
+jwt:
+    secret: "SHORT_URL_API_JWT_TOKEN_SECRET_KEY_VALUE"
+    access:
+        #expiration: 300000 #5분 (5 * 60) * 1000
+        expiration: 864000000 #10일 (60 * 60 * 24 * 10) * 1000
+        header: "X-AUTH-TOKEN"
+    refresh:
+        expiration: 864000000 #10일 (60 * 60 * 24 * 10) * 1000
+        header: "X-REFRESH-TOKEN"
+---
+spring:
+    config:
+      activate:
+          on-profile: local
     h2:
         console:
             enabled: true
@@ -29,17 +57,36 @@ spring:
                 format_sql: true
                 show_sql: true
         defer-datasource-initialization: true
-    redis:
-        host: localhost
-        port: 6379
-server:
-    port: 7777
-jwt:
-    secret: "SHORT_URL_API_JWT_TOKEN_SECRET_KEY_VALUE"
-    access:
-        expiration: 300000 #5분 (5 * 60) * 1000
-        header: "X-AUTH-TOKEN"
-    refresh:
-        expiration: 864000000 #10일 (60 * 60 * 24 * 10) * 1000
-        header: "X-REFRESH-TOKEN"
+domain: "http://localhost:7777/"
+---
+spring:
+    config:
+        activate:
+            on-profile: product
+#    datasource:
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: "jdbc:mysql://{url}:{port}/{dbname}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+#        username: {id}
+#        password: {pw}
+#        hikari:
+#            minimum-idle: 1
+#            maximum-pool-size: 5
+#            pool-name: MYSQL_DB
+    datasource:
+        driver-class-name: org.h2.Driver
+        url: "jdbc:h2:mem:spring_assignments;MODE=MYSQL;"
+        username: sa
+        password:
+        hikari:
+            minimum-idle: 1
+            maximum-pool-size: 5
+            pool-name: H2_DB
+    jpa:
+        hibernate:
+            ddl-auto: none
+        properties:
+            hibernate:
+                format_sql: false
+                show_sql: false
+        defer-datasource-initialization: true
 domain: "http://localhost:7777/"
