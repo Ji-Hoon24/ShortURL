@@ -7,7 +7,7 @@ env:
   AWS_ACCOUNT_ID: 224460675860
   ECS_CLUSTER_NAME: Shorti-production
   ECS_SERVICE_NAME: Shorti
-  ECR_REPOSITORY_NAME: Shorti/Shorti
+  ECR_REPOSITORY_NAME: shorti/shorti_rest
   CONTAINER_NAME: Shorti
 
 on:
