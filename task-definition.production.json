@@ -6,7 +6,7 @@
       "cpu": 1,
       "image": "224460675860.dkr.ecr.ap-northeast-2.amazonaws.com/shorti/shorti_rest:latest",
       "memory": 1024,
-      "name": "buddystock_rest",
+      "name": "Shorti",
       "secrets": [
         {
           "valueFrom": "SSM example",
