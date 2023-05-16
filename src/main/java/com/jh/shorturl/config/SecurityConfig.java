@@ -51,6 +51,7 @@ public class SecurityConfig {
                 , "/api/auth/sendAuth"
                 , "/api/auth/validAuth"
                 , "/api/shorter/**"
+                , "/"
         );
     }
 
