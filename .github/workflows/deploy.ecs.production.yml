@@ -8,7 +8,7 @@ env:
   ECS_CLUSTER_NAME: shorti-server-cluster
   ECS_SERVICE_NAME: shorti-server
   ECR_REPOSITORY_NAME: shorti/shorti_rest
-  CONTAINER_NAME: Shorti
+  CONTAINER_NAME: Shorti-Server-Container
 
 on:
   push:

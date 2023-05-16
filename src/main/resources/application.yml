@@ -16,7 +16,7 @@ spring:
         host: localhost
         port: 6379
 server:
-    port: 7777
+    port: 80
 jwt:
     secret: "SHORT_URL_API_JWT_TOKEN_SECRET_KEY_VALUE"
     access:
@@ -57,7 +57,7 @@ spring:
                 format_sql: true
                 show_sql: true
         defer-datasource-initialization: true
-domain: "http://localhost:7777/"
+domain: "http://localhost:80/"
 ---
 spring:
     config:
@@ -89,4 +89,4 @@ spring:
                 format_sql: false
                 show_sql: false
         defer-datasource-initialization: true
-domain: "http://localhost:7777/"
+domain: "http://localhost:80/"
