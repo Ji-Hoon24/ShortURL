@@ -5,8 +5,8 @@ env:
   SERVICE: Shorti
   AWS_REGION: ap-northeast-2
   AWS_ACCOUNT_ID: 224460675860
-  ECS_CLUSTER_NAME: Shorti-production
-  ECS_SERVICE_NAME: Shorti
+  ECS_CLUSTER_NAME: shorti-server-cluster
+  ECS_SERVICE_NAME: shorti-server
   ECR_REPOSITORY_NAME: shorti/shorti_rest
   CONTAINER_NAME: Shorti
 
