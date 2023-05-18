@@ -6,7 +6,7 @@
       "cpu": 1,
       "image": "224460675860.dkr.ecr.ap-northeast-2.amazonaws.com/shorti/shorti_rest:latest",
       "memory": 1024,
-      "name": "Shorti",
+      "name": "Shorti-Server-Container",
       "secrets": [
         {
           "valueFrom": "SSM example",
@@ -18,11 +18,11 @@
         {
           "hostPort": 0,
           "protocol": "tcp",
-          "containerPort": "7777"
+          "containerPort": "80"
         }
       ],
       "dockerLabels": {
-        "PROMETHEUS_EXPORTER_PORT": "7777"
+        "PROMETHEUS_EXPORTER_PORT": "80"
       },
       "logConfiguration": {
         "logDriver": "awslogs",
