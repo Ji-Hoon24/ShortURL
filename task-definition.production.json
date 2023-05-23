@@ -1,9 +1,9 @@
 {
-  "family": "shorti_rest_production",
+  "family": "Shorti-Server-Task",
   "executionRoleArn": "arn:aws:iam::224460675860:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "cpu": 1,
+      "cpu": 1024,
       "image": "224460675860.dkr.ecr.ap-northeast-2.amazonaws.com/shorti/shorti_rest:latest",
       "memory": 1024,
       "name": "Shorti-Server-Container",
