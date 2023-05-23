@@ -3,9 +3,9 @@
   "executionRoleArn": "arn:aws:iam::224460675860:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "cpu": 1024,
+      "cpu": 256,
       "image": "224460675860.dkr.ecr.ap-northeast-2.amazonaws.com/shorti/shorti_rest:latest",
-      "memory": 1024,
+      "memory": 256,
       "name": "Shorti-Server-Container",
       "entryPoint": ["java", "-jar", "app.jar", "--spring.profiles.active=product"],
       "portMappings": [
@@ -15,9 +15,6 @@
           "containerPort": "80"
         }
       ],
-      "dockerLabels": {
-        "PROMETHEUS_EXPORTER_PORT": "80"
-      },
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
