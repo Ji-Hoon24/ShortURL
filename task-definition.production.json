@@ -7,12 +7,6 @@
       "image": "224460675860.dkr.ecr.ap-northeast-2.amazonaws.com/shorti/shorti_rest:latest",
       "memory": 1024,
       "name": "Shorti-Server-Container",
-      "secrets": [
-        {
-          "valueFrom": "SSM example",
-          "name": "example"
-        }
-      ],
       "entryPoint": ["java", "-jar", "app.jar", "--spring.profiles.active=product"],
       "portMappings": [
         {
