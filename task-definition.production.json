@@ -1,6 +1,6 @@
 {
   "family": "shorti_rest_production",
-  "executionRoleArn": "arn:aws:iam::224460675860:user/github-action",
+  "executionRoleArn": "arn:aws:iam::224460675860:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "cpu": 1,
