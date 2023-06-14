@@ -63,33 +63,18 @@ spring:
     config:
         activate:
             on-profile: product
-#    datasource:
-#        driver-class-name: com.mysql.cj.jdbc.Driver
-#        url: "jdbc:mysql://{url}:{port}/{dbname}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
-#        username: {id}
-#        password: {pw}
-#        hikari:
-#            minimum-idle: 1
-#            maximum-pool-size: 5
-#            pool-name: MYSQL_DB
-    h2:
-        console:
-            enabled: true
-            path: /h2-console
-            settings:
-                web-allow-others: true
     datasource:
-        driver-class-name: org.h2.Driver
-        url: "jdbc:h2:mem:spring_assignments;MODE=MYSQL;"
-        username: sa
-        password:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${DATASOURCE_URL}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+        username: ${DATASOURCE_USERNAME}
+        password: ${DATASOURCE_PASSWORD}
         hikari:
             minimum-idle: 1
             maximum-pool-size: 5
-            pool-name: H2_DB
+            pool-name: MYSQL_DB
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: none
         properties:
             hibernate:
                 format_sql: false

@@ -7,6 +7,20 @@
       "image": "224460675860.dkr.ecr.ap-northeast-2.amazonaws.com/shorti/shorti_rest:latest",
       "memory": 256,
       "name": "Shorti-Server-Container",
+      "secrets": [
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:224460675860:secret:DATASOURCE_URL-eZVqqP",
+          "name": "DATASOURCE_URL"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:224460675860:secret:DATASOURCE_USERNAME-2Vnlvz",
+          "name": "DATASOURCE_USERNAME"
+        },
+        {
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:224460675860:secret:DATASOURCE_PASSWORD-WtIu5X",
+          "name": "DATASOURCE_PASSWORD"
+        }
+      ],
       "entryPoint": ["java", "-jar", "app.jar", "--spring.profiles.active=product"],
       "portMappings": [
         {
