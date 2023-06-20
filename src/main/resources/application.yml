@@ -83,4 +83,4 @@ spring:
                 format_sql: false
                 show_sql: false
         defer-datasource-initialization: true
-domain: "http://localhost:80/"
+domain: "https://shorti.kr/"
