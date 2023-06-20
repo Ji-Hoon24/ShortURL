@@ -12,9 +12,6 @@ spring:
         name: ShortURL
     messages:
         encoding: UTF-8
-    redis:
-        host: localhost
-        port: 6379
 server:
     port: 80
 jwt:
@@ -29,8 +26,11 @@ jwt:
 ---
 spring:
     config:
-      activate:
+        activate:
           on-profile: local
+    redis:
+        host: localhost
+        port: 6379
     h2:
         console:
             enabled: true
@@ -63,6 +63,9 @@ spring:
     config:
         activate:
             on-profile: product
+    redis:
+        host: host.docker.internal
+        port: 6379
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: ${DATASOURCE_URL}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8

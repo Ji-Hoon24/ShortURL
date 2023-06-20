@@ -3,7 +3,7 @@
   "executionRoleArn": "arn:aws:iam::224460675860:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "cpu": 256,
+      "cpu": 1,
       "image": "224460675860.dkr.ecr.ap-northeast-2.amazonaws.com/shorti/shorti_rest:latest",
       "memory": 256,
       "name": "Shorti-Server-Container",
