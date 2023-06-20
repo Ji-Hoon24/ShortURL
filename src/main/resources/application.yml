@@ -64,7 +64,7 @@ spring:
         activate:
             on-profile: product
     redis:
-        host: host.docker.internal
+        host: 172.17.0.3
         port: 6379
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
