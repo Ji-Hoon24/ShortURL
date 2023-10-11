@@ -52,6 +52,7 @@ public class SecurityConfig {
                 , "/api/auth/validAuth"
                 , "/api/shorter/**"
                 , "/"
+                , "**"
         );
     }
 
@@ -78,10 +79,13 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
+//                .authorizeRequests(authorizeRequests ->
+//                        authorizeRequests
+//                                .antMatchers("/api/admin/**", "/api/member/myProfile").authenticated() // 특정 경로에 대해서만 인증 요구
+//                                .anyRequest().permitAll() // 다른 모든 요청은 허용
+//                )
                 .authorizeRequests()
-
                 .anyRequest().authenticated()
-
                 .and()
                 .apply(new JwtSecurityConfig(jwtConfig));
 
